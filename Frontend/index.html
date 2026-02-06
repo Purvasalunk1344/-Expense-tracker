@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Expense Tracker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <h2>💰 Expense Tracker</h2>
+  </div>
+  <div>
+    <span id="userEmail" class="user-email"></span>
+    <button id="logoutBtn" class="logout-btn">Logout</button>
+  </div>
+</div>
+
+<div class="container">
+<div class="input-row">
+  <input type="text" id="title" placeholder="Expense title">
+  <input type="number" id="amount" placeholder="Amount">
+  <input type="text" id="category" placeholder="Category">
+  <input type="date" id="date">
+  <button id="addBtn">Add Expense</button>
+</div>
+
+<label><strong>Select Month:</strong></label>
+<select id="monthFilter">
+  <option value="all">All</option>
+</select>
+
+<h3>Expenses</h3>
+<ul id="expenseList"></ul>
+<h3 id="total">Total: ₹0</h3>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
