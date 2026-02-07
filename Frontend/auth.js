@@ -1,4 +1,5 @@
-const AUTH_API = "http://localhost:5000/api/auth";
+const AUTH_API = "https://expense-tracker-sjh1.onrender.com/api/auth";
+
 
 console.log("auth.js loaded");
 
