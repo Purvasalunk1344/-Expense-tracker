@@ -1,8 +1,8 @@
 
 // Load configuration
-const API_URL = window.API_BASE_URL + "/expenses" || "https://expense-tracker-sjh1.onrender.com/api/expenses";
+const API_URL = (window.API_BASE_URL ? window.API_BASE_URL + "/expenses" : "https://expense-tracker-sjh1.onrender.com/api/expenses");
 
-
+console.log("script.js loaded", "API_URL=", API_URL);
 
 const token = localStorage.getItem("token");
 const userEmail = localStorage.getItem("userEmail");

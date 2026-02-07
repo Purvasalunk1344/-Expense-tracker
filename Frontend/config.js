@@ -1,9 +1,14 @@
-// API Configuration
-// Change this based on your environment
-const API_BASE_URL = process.env.REACT_APP_API_URL || 
-                     (window.location.hostname === 'localhost' 
-                       ? 'http://localhost:5000/api' 
-                       : 'https://expense-tracker-sjh1.onrender.com/api');
+// API Configuration (browser-safe)
+// Priority: window.__API_BASE_URL__ override -> localhost check -> production URL
+(function () {
+  var API_BASE_URL = 'https://expense-tracker-sjh1.onrender.com/api';
 
-// Export for use in other files
-window.API_BASE_URL = API_BASE_URL;
+  if (typeof window.__API_BASE_URL__ !== 'undefined' && window.__API_BASE_URL__) {
+    API_BASE_URL = window.__API_BASE_URL__;
+  } else if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    API_BASE_URL = 'http://localhost:5000/api';
+  }
+
+  // Expose to other scripts
+  window.API_BASE_URL = API_BASE_URL;
+})();

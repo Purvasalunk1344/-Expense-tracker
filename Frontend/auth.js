@@ -1,8 +1,7 @@
 // Load configuration
-const AUTH_API = window.API_BASE_URL + "/auth" || "https://expense-tracker-sjh1.onrender.com/api/auth";
+const AUTH_API = (window.API_BASE_URL ? window.API_BASE_URL + "/auth" : "https://expense-tracker-sjh1.onrender.com/api/auth");
 
-
-console.log("auth.js loaded");
+console.log("auth.js loaded", "AUTH_API=", AUTH_API);
 
 // REGISTER
 function register() {
