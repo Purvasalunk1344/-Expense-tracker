@@ -1,4 +1,5 @@
-const AUTH_API = "https://expense-tracker-sjh1.onrender.com/api/auth";
+// Load configuration
+const AUTH_API = window.API_BASE_URL + "/auth" || "https://expense-tracker-sjh1.onrender.com/api/auth";
 
 
 console.log("auth.js loaded");

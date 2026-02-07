@@ -1,5 +1,6 @@
 
-const API_URL = "https://expense-tracker-sjh1.onrender.com/api/expenses";
+// Load configuration
+const API_URL = window.API_BASE_URL + "/expenses" || "https://expense-tracker-sjh1.onrender.com/api/expenses";
 
 
 

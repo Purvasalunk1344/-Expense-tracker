@@ -6,14 +6,16 @@ const db = require('../db');
 
 
 router.post('/',auth, (req, res) => {
-   console.log("User ID from token:", req.userId); // 👈 ADD THIS
+  console.log("User ID from token:", req.userId);
   const { title, amount, category, date } = req.body;
 
   const sql = 'INSERT INTO expenses (title, amount, category, date,user_id) VALUES (?, ?, ?, ?,?)';
-  db.query(sql, [title, amount, category, date , req.userId], (err) => {
-    console.error("DB error:", err); // 👈 ADD THIS
-    if (err) return res.status(500).json(err);
-    res.json({ message: 'Expense added successfully' });
+  db.query(sql, [title, amount, category, date , req.userId], (err, result) => {
+    if (err) {
+      console.error("DB error:", err);
+      return res.status(500).json(err);
+    }
+    res.json({ message: 'Expense added successfully', id: result.insertId });
   });
 });
 
