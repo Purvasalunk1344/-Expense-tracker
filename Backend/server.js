@@ -1,22 +1,26 @@
-
 require("dotenv").config();
 
 const express = require('express');
 const cors = require('cors');
 
-// Require DB early so connection is attempted on startup (and logs appear)
-const db = require('./db');
+// Require DB early so connection is attempted on startup
+require('./db');
 
 const app = express();
-app.use(cors());
+
+app.use(cors({
+  origin: "https://expense-tracker-phi-sandy.vercel.app",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true
+}));
+
 app.use(express.json());
 
-const expenseRoutes = require('./routes/expenseRoutes');
-const authRoutes = require("./routes/authRoutes");
-app.use('/api/expenses', expenseRoutes);
-app.use("/api/auth", authRoutes);
+app.use("/api/auth", require("./routes/authRoutes"));
+app.use("/api/expenses", require("./routes/expenseRoutes"));
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
