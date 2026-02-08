@@ -29,14 +29,21 @@ router.post("/login", (req, res) => {
     "SELECT * FROM users WHERE email = ?",
     [email],
     async (err, result) => {
-      if (result.length === 0)
+      if (err) {
+        console.error("DB error during login:", err);
+        return res.status(500).json({ message: "Internal server error" });
+      }
+
+      if (!result || result.length === 0) {
         return res.status(401).json({ message: "Invalid credentials" });
+      }
 
       const user = result[0];
       const match = await bcrypt.compare(password, user.password);
 
-      if (!match)
+      if (!match) {
         return res.status(401).json({ message: "Invalid credentials" });
+      }
 
       const token = jwt.sign({ id: user.id }, SECRET, { expiresIn: "1h" });
       res.json({ token });
