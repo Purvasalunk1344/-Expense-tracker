@@ -35,14 +35,15 @@ module.exports = function ensureTables(db) {
       db.query(expensesSql, (err2) => {
         if (err2) {
           console.error('Error creating expenses table:', err2);
-          // table exists, try to fix id column
-          db.query(fixExpensesIdSql, (err3) => {
-            if (err3) console.error('Error fixing expenses table id:', err3);
-            else console.log('Fixed expenses table id to AUTO_INCREMENT');
-          });
         } else {
           console.log('Ensured expenses table exists');
         }
+
+        // Always try to fix id column (harmless if already AUTO_INCREMENT)
+        db.query(fixExpensesIdSql, (err3) => {
+          if (err3) console.error('Error fixing expenses table id:', err3);
+          else console.log('Ensured expenses table id has AUTO_INCREMENT');
+        });
       });
     }
   });
