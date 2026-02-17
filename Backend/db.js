@@ -23,22 +23,24 @@ const connectionConfig = {
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME
+  database: process.env.DB_NAME,
+  port: process.env.DB_PORT || 3306,
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
 };
 
-if (process.env.DB_PORT) {
-  const p = Number(process.env.DB_PORT);
-  if (!Number.isNaN(p)) connectionConfig.port = p;
-}
+// USE POOL INSTEAD OF SINGLE CONNECTION
+const db = mysql.createPool(connectionConfig);
 
-const db = mysql.createConnection(connectionConfig);
-
-db.connect((err) => {
+// Test initial connection
+db.getConnection((err, connection) => {
   if (err) {
-    console.error("DB connection error:", err);
-    return;
+    console.error("DB Connection Failed:", err);
+  } else {
+    console.log("MySQL Connected");
+    connection.release();
   }
-  console.log("MySQL Connected");
 });
 
 module.exports = db;
